@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Delivery Pro Assistant</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div>
+        <h1>Delivery Pro Assistant</h1>
+        <p>Track orders, earnings, calls, notes, and navigation in one place.</p>
+      </div>
+      <button id="clearData" class="danger">Reset Data</button>
+    </header>
+
+    <main class="grid">
+      <section class="card" id="ordersCard">
+        <h2>Orders & Earnings</h2>
+        <form id="orderForm" class="stack">
+          <label>
+            Customer name
+            <input id="customerName" required placeholder="e.g. Sarah" />
+          </label>
+          <label>
+            Restaurant
+            <input id="restaurantName" required placeholder="e.g. Pizza House" />
+          </label>
+          <label>
+            Order value ($)
+            <input id="orderValue" type="number" min="0" step="0.01" required />
+          </label>
+          <label>
+            Delivery fee earned ($)
+            <input id="deliveryFee" type="number" min="0" step="0.01" required />
+          </label>
+          <button type="submit">Add Delivered Order</button>
+        </form>
+        <div class="stats">
+          <div><strong id="totalOrders">0</strong><span>Total orders</span></div>
+          <div><strong id="totalRevenue">$0.00</strong><span>Total order value</span></div>
+          <div><strong id="totalEarnings">$0.00</strong><span>Your earnings</span></div>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>Call Center</h2>
+        <p>Manage quick calls and WhatsApp calls with one click.</p>
+        <div class="stack">
+          <label>
+            Contact name
+            <input id="contactName" placeholder="Restaurant or customer" />
+          </label>
+          <label>
+            Phone number
+            <input id="contactNumber" placeholder="+1..." />
+          </label>
+          <div class="row">
+            <button id="saveContact" type="button">Save Contact</button>
+            <button id="importContacts" type="button" class="secondary">Import contacts (.json)</button>
+          </div>
+          <small class="hint">For security reasons, browsers cannot auto-read phone contacts directly. You can import contacts JSON and use tap-to-call.</small>
+        </div>
+        <ul id="contactList" class="list"></ul>
+      </section>
+
+      <section class="card">
+        <h2>City Restaurants & Maps</h2>
+        <div class="row compact">
+          <label>
+            City
+            <input id="cityInput" placeholder="e.g. Casablanca" />
+          </label>
+          <button id="loadRestaurants" type="button">Load Suggestions</button>
+        </div>
+        <p class="hint">Add your city and keep all restaurant numbers ready for fast calling.</p>
+        <ul id="restaurantList" class="list"></ul>
+        <iframe
+          id="mapFrame"
+          title="Google Maps"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          src="https://www.google.com/maps?q=restaurants%20near%20me&output=embed"
+        ></iframe>
+      </section>
+
+      <section class="card">
+        <h2>Notes</h2>
+        <textarea id="notes" rows="8" placeholder="Write delivery notes, customer tips, addresses..."></textarea>
+      </section>
+
+      <section class="card">
+        <h2>Calculator</h2>
+        <div id="calcDisplay">0</div>
+        <div id="calcGrid" class="calc-grid"></div>
+      </section>
+
+      <section class="card wide">
+        <h2>Activity History</h2>
+        <p>Orders, phone calls, and WhatsApp calls are tracked here.</p>
+        <ul id="historyList" class="list history"></ul>
+      </section>
+    </main>
+
+    <input id="fileInput" type="file" accept="application/json" hidden />
+
+    <script src="app.js"></script>
+  </body>
+</html>
